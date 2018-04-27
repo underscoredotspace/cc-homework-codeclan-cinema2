@@ -7,26 +7,47 @@ require_relative('../models/Ticket')
 Customer.delete_all()
 Film.delete_all()
 
-colin = Customer.new({
-  "name" => "Colin",
+bart = Customer.new({
+  "name" => "Bart",
   "funds" => 300
 })
+bart.save()
 
-colin.save()
+lisa = Customer.new({
+  "name" => "Lisa",
+  "funds" => 234
+})
+lisa.save()
 
 lebowski = Film.new({
   "title" => "The Big Lebowski",
   "price" => 4
 })
-
 lebowski.save()
 
-ticket = Ticket.new({
-  "film_id" => lebowski.id,
-  "customer_id" => colin.id
+pulpfiction = Film.new({
+  "title" => "Pulp Fiction",
+  "price" => 5
 })
+pulpfiction.save()
 
-ticket.save()
+ticket1 = Ticket.new({
+  "film_id" => lebowski.id,
+  "customer_id" => bart.id
+})
+ticket1.save()
+
+ticket2 = Ticket.new({
+  "film_id" => pulpfiction.id,
+  "customer_id" => bart.id
+})
+ticket2.save()
+
+ticket3 = Ticket.new({
+  "film_id" => pulpfiction.id,
+  "customer_id" => lisa.id
+})
+ticket3.save()
 
 binding.pry
 nil
