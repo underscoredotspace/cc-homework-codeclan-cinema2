@@ -9,6 +9,16 @@ class Customer
     @funds = options["funds"].to_i
   end
 
+  def films()
+    sql = "SELECT films.* FROM films
+      INNER JOIN tickets
+      ON tickets.film_id = films.id
+      WHERE tickets.customer_id = $1;"
+    values = [@id]
+    film_hashes = SqlRunner.run(sql, values)
+    return Film.map_items(film_hashes)
+  end
+
   def save()
     sql = "INSERT INTO customers (name, funds) 
       VALUES ($1, $2) 
@@ -25,6 +35,10 @@ class Customer
 
   def delete()
     SqlRunner.run("DELETE FROM customers WHERE id = $1;", [@id])
+  end
+
+  def self.map_items(items)
+    items.map { |item| self.new(item)}
   end
 
   def self.delete_all()

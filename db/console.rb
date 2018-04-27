@@ -49,5 +49,11 @@ ticket3 = Ticket.new({
 })
 ticket3.save()
 
+p bart.films()
+p lisa.films()
+
+p lebowski.customers()
+p pulpfiction.customers()
+
 binding.pry
 nil
