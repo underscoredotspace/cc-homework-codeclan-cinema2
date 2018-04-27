@@ -1,9 +1,16 @@
 require('pg')
 
 class SqlRunner
-  def self.run( sql, values = [] )
+  def self.connect()
+    PG.connect({
+      dbname: 'codeclan_cinema', 
+      host: 'localhost'
+    })
+  end
+
+  def self.run(sql, values=[])
     begin
-      db = PG.connect({ dbname: 'codeclan_cinema', host: 'localhost' })
+      db = self.connect()
       result = db.exec_params(sql, values)
     ensure
       db.close() if db != nil
